@@ -22,43 +22,42 @@
 	<style>article,#map{width:100%;height:300px;margin:0;padding:0;}.info{padding:6px 8px;font:14px/16px Arial,Helvetica,sans-serif;background:white;background:rgba(255,255,255,0.8);box-shadow:0 0 15px rgba(0,0,0,0.2);border-radius:5px;}.info h4{margin:0 0 5px;color:#777;}#map:-webkit-full-screen{width:100%!important;height:100%!important;}#map:-moz-full-screen{width:100%!important;height:100%!important;}#map:full-screen{width:100%!important;height:100%!important;}.leaflet-control-zoom-fullscreen{background-image:url(http://conmenu.com/resource/js/leaflet_plugins/fullscreen/icon-fullscreen.png);}.leaflet-control-zoom-fullscreen.last{margin-top:5px}</style>
 
 	<script>
-	    // Load the Visualization API and the piechart package.
-	    google.load('visualization', '1', {'packages':['corechart']});
-	     
-	
-		var jsonData = <?php getValues()  ?>;
-		var jsonData2 = <?php getValues("TEMPERATURE")  ?>;
-		var jsonData3 = <?php getValues("AIR_HUMIDITY") ?>;
-	
-	//function to draw the chart
-	    function drawChart() {
-	
-	    	// Create our data table out of JSON data loaded from server.
-	          var data = new google.visualization.DataTable(jsonData);
-	          var data2 = new google.visualization.DataTable(jsonData2);
-	          var data3 = new google.visualization.DataTable(jsonData3);
-	
-	          // Instantiate and draw our chart, passing in some options.
-	          var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-	          var chart2 = new google.visualization.LineChart(document.getElementById('chart2_div'));
-	          var chart3 = new google.visualization.LineChart(document.getElementById('chart3_div'));
-	          
-	          chart.draw(data, {width: 400, height: 240});
-	          chart2.draw(data2, {width: 400, height: 240});
-	          chart3.draw(data3, {width: 400, height: 240});
-	        }
+// enable or disable the checkboxes
+function changeForm(name){
+	var checkboxCO = document.getElementById("chkCO"),
+		checkboxO3 = document.getElementById("chkO3"),
+		checkboxSO2 = document.getElementById("chkSO2"),
+		checkboxPM10 = document.getElementById("chkPM10");
+		checkboxNO = document.getElementById("chkNO");
+// If Lanuv-station Geist is set, disable CO-Checkbox and enable O3, SO2, PM10 and NO
+	if (name == "Geist"){
+		checkboxCO.setAttribute('disabled', true);
+		checkboxO3.removeAttribute('disabled');
+		checkboxSO2.removeAttribute('disabled');
+		checkboxPM10.removeAttribute('disabled');
+		checkboxNO.removeAttribute('disabled');
+	}
+// If Lanuv-Station Weseler is set, disable CO, O3 and SO2-Checkbox and enable PM10 and NO
+	else { if (name == "Weseler") {
+		checkboxCO.setAttribute('disabled', true);
+		checkboxO3.setAttribute('disabled', true);
+		checkboxSO2.setAttribute('disabled', true);
+		checkboxPM10.removeAttribute('disabled');
+		checkboxNO.removeAttribute('disabled');
+	}
+// else AQE is set
+	else {
+		checkboxCO.removeAttribute('disabled');
+		checkboxO3.removeAttribute('disabled');
+		checkboxSO2.setAttribute('disabled', true);
+		checkboxPM10.setAttribute('disabled', true);
+		checkboxNO.setAttribute('disabled', true);
 		
-	
-	
-		// json-object are empty, do nothing	
-		if (jsonData == "" || jsonData2 == "" || jsonData3 == ""){
-		}
-		// else draw the charts
-		else {
-	    // Set a callback to run when the Google Visualization API is loaded.
-	    google.setOnLoadCallback(drawChart);
-	   	}
-	</script>
+	}
+	}
+}
+
+</script>
 	
 	<script type="text/javascript" src="lib/js/jquery.mobile-1.3.0.min.js"></script>
 
@@ -82,9 +81,9 @@
 			</div><!-- /navbar -->
 		</div>
 		  
-		<form action = "dia2.php" method ="post" name="form" data-ajax="false">
+		<form action = "dia2.php" method ="post" id="form" name="form" data-ajax="false">
 			<fieldset>
-			<legend>Selecting Test</legend>
+			<legend>Bitte w&auml;hlen Sie eine Messstation</legend>
 			<p>
 				<label>Messstation</label>
 						<?php 
@@ -94,7 +93,7 @@
 			</fieldset>
 			
 			<fieldset>
-			<legend>von - bis</legend>			
+			<legend>Bitte w&auml;hlen Sie ein Zeitintervall</legend>			
 			<input  
 	       name="startdate" 
 	       type="date" 
@@ -122,63 +121,79 @@
 					/-->
 							
 			</fieldset>
-			<label><b>Werte</b></label>
+			<label><b>Bitte w&auml;hlen Sie aus, ob das Diagramm Ausrei&szlig;er beinhalten soll oder nicht</b></label>
 			<fieldset data-role="controlgroup" data-type="horizontal">
-	    			
-				<input type="radio" name="outliers" id="radio-choice-22" value="choice-2"  />
+	    		
+	    		<input type="radio" name="outliers" id="radio-choice-22" value="yes" checked></input>
+	    		<label for="radio-choice-22">unbereinigt</label>
+				<input type="radio" name="outliers" id="radio-choice-23" value="no"></input>
+				<label for="radio-choice-23">bereinigt</label>	
+				<!--input type="radio" name="outliers" id="radio-choice-22" value="choice-2"  />
 	         	<label for="radio-choice-22">unbereinigte</label>
 	
 	         	<input type="radio" name="outliers" id="radio-choice-23" value="choice-3"  />
-	         	<label for="radio-choice-23">bereinigte</label>
+	         	<label for="radio-choice-23">bereinigte</label-->
 			</fieldset>
+			<legend>Bitte w&auml;hlen Sie aus, welche Messwerte sie im Diagramm anzeigen wollen</legend>
 			<fieldset data-role="controlgroup" data-type="horizontal">	
 				
 							
 				<input type = "checkbox"
-					id = "chkCO"
-					value = "CO_CONCENTRATION"
-					name = "observation[]" />
-				<label for = "chkCO">CO</label>
-				
-				<input type = "checkbox"
-					id = "chkNO2"
-					value = "NO2_CONCENTRATION"
-					name = "observation[]" />
-				<label for = "chkNO2">NO2</label>
-				<!--input type = "checkbox"
-					id = "chkNO2"
-					value = "NO2_CONCENTRATION"
-					name = "observation[]" />
-				<label for "chkNO2">NO2</label-->
-							
-				<input type = "checkbox"
-					id = "chkO3"
-					value = "O3_CONCENTRATION"
-					name = "observation[]" />
-				<label for = "chkO3">O3</label>
-				<input type = "checkbox"
-					id = "chkSO2"
-					value = "SO2_CONCENTRATION"
-					name = "observation[]" />
-				<label for = "chkSO2">SO2</label>
-				
-				<input type = "checkbox"
-					id = "chkPM10"
-					value = "PM10"
-					name = "observation[]" />
-				<label for = "chkPM10">PM10</label>	
+							id = "chkCO"
+							value = "CO_CONCENTRATION"
+							name = "observation[]" />
+						<label for = "chkCO">CO</label>
+
+						<input type = "checkbox"
+							id="chkNO"
+							value = "NO_CONCENTRATION"
+							name= "observation[]"
+							disabled />
+						<label for = "chkNO">NO</label>
+						
+						<input type = "checkbox"
+							id = "chkNO2"
+							value = "NO2_CONCENTRATION"
+							name = "observation[]" />
+						<label for = "chkNO2">NO2</label>
+						
+						<input type = "checkbox"
+							id = "chkO3"
+							value = "O3_CONCENTRATION"
+							name = "observation[]" />
+						<label for = "chkO3">O3</label>
+
+						<input type = "checkbox"
+							id = "chkPM10"
+							value = "PM10_CONCENTRATION"
+							name = "observation[]"
+							disabled />
+						<label for = "chkPM10">PM10</label>	
+						
+						<input type = "checkbox"
+							id = "chkSO2"
+							value = "SO2_CONCENTRATION"
+							name = "observation[]"
+							disabled />
+						<label for = "chkSO2">SO2</label>	
 					
 			</p>
 			</fieldset>
 			<fieldset>
-				<input type="submit" value="Anzeigen" />
+				<input class = "searchButton" type="submit" value="Anzeigen" />
 			</fieldset>	
 			
 		</form>
 		
-	    <div id="chart_div"></div>
-	    <div id="chart2_div"></div>
-	    <div id="chart3_div"></div>
+	    <?php 
+				if (isset($_POST['foi'])){
+					if ($_POST['foi'] != "Geist" OR $_POST['foi'] != "Weseler"){
+						echo '
+						<div id="chart_div"></div>
+						<div id="chart2_div"></div>
+						<div id="chart3_div"></div> ';
+						}
+					else { echo '<div id="chart_div"></div>'; }} ?>
    </div>
 
   </body>
