@@ -58,7 +58,7 @@
         // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
         
-        chart.draw(data, {width: 700, height: 400, vAxis:{title: "Werte in �g/m�", viewWindow:{min: 0}}, hAxis:{title: "Datum", slantedText:false}});
+        chart.draw(data, {width: 320, height: 400, vAxis:{title: "Werte in �g/m�", viewWindow:{min: 0}}, hAxis:{title: "Datum", slantedText:false}});
 	}
 }
 	
