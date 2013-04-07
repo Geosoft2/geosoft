@@ -43,7 +43,7 @@
 			<p>
 				<label>Messstation</label>
 				<?php
-					include('seloptK.php');
+					include('selopt.php');
 				?>
 			</p>
 		</fieldset>
