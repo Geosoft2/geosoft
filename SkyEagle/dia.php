@@ -67,13 +67,14 @@ function changeForm(name){
 
 	<div data-role="page" id="dia">
 	  	<div data-role="header" data-position="fixed">
-	  		<a href="index.html" data-rel="back">Zurück</a>
+	  		<a href="homemobile.php" data-rel="back">Zurück</a>
 			<!--a href="index.html" data-icon="delete">Cancel</a-->
 			<h1>SkyEagle - Diagramm</h1>
+			<a href="hilfe.php">Hilfe</a>
 			<!--a href="index.html" data-icon="check">Save</a-->
 			<div data-role="navbar">
 			<ul>
-				<li><a href="index.php">Home</a></li>
+				<li><a href="homemobile.php">Home</a></li>
 				<li><a href="map.php" rel="external">Karte</a></li>
 				<li><a href="#">Diagramm</a></li>
 				<li><a href="tabelle.php">Tabelle</a></li>
