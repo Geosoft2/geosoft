@@ -1,3 +1,6 @@
+<?php 
+include '../php/tabform.php'
+?>
 <!DOCTYPE HTML>
 <head>
 	<meta charset="utf-8">
@@ -6,18 +9,16 @@
 	<title>SkyEagle - Tabelle</title>
 	<!--link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" /-->
     
-	<link rel="stylesheet" type="text/css" href="lib/css/jquery.mobile-1.3.0.min.css">
-	<link rel="stylesheet" type="text/css" href="lib/css/leaflet.css">
-	<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
-	<link rel="shortcut icon" href="/favicon.ico" />
-	<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+	<link rel="stylesheet" type="text/css" href="../css/jquery.mobile-1.3.0.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/leaflet.css">
+	
 	<script src="https://www.google.com/jsapi"></script>
-	<script type="text/javascript" src="lib/js/jquery-1.9.1.min.js"></script>
-	<script type="text/javascript" src="lib/js/leaflet.js"></script>
+	<script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="../js/leaflet.js"></script>
 	
 	<style>article,#map{width:100%;height:300px;margin:0;padding:0;}.info{padding:6px 8px;font:14px/16px Arial,Helvetica,sans-serif;background:white;background:rgba(255,255,255,0.8);box-shadow:0 0 15px rgba(0,0,0,0.2);border-radius:5px;}.info h4{margin:0 0 5px;color:#777;}#map:-webkit-full-screen{width:100%!important;height:100%!important;}#map:-moz-full-screen{width:100%!important;height:100%!important;}#map:full-screen{width:100%!important;height:100%!important;}.leaflet-control-zoom-fullscreen{background-image:url(http://conmenu.com/resource/js/leaflet_plugins/fullscreen/icon-fullscreen.png);}.leaflet-control-zoom-fullscreen.last{margin-top:5px}</style>
 
-	<script type="text/javascript" src="lib/js/jquery.mobile-1.3.0.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.mobile-1.3.0.min.js"></script>
 
 </head>
 <body>
@@ -45,7 +46,7 @@
 			<p>
 				<label>Messstation</label>
 				<?php
-					include('selopt.php');
+					createOptionList();
 				?>
 			</p>
 		</fieldset>
@@ -57,14 +58,12 @@
 	       data-role="datebox" 
 	       id="datepicker" 
 	       min="2013-03-22"
-	       value = "2013-03-26"
 	       />
 	        <input   
 	       name="enddate" 
 	       type="date" 
 	       data-role="datebox" 
 	       id="datepicker2" 
-	       value = "2013-03-27"
 	       />
 				<!--input type = "text" 
 					id="datepicker"
