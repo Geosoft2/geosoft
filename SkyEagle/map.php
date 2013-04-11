@@ -8,19 +8,16 @@
 	
     <!--script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script-->
 	<!--script src="js/ger_dpicker.js"></script-->
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.css" />
-	<link rel="stylesheet" type="text/css" href="lib/css/jquery.mobile-1.3.0.min.css">
-	<link rel="stylesheet" type="text/css" href="lib/css/leaflet.css">
-	<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
-	<link rel="shortcut icon" href="/favicon.ico" />
-	<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+	<link rel="stylesheet" type="text/css" href="../css/jquery.mobile-1.3.0.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/leaflet.css">
+	
 	<script src="https://www.google.com/jsapi"></script>
-	<script type="text/javascript" src="lib/js/jquery-1.9.1.min.js"></script>
-	<script type="text/javascript" src="lib/js/leaflet.js"></script>
+	<script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="../js/leaflet.js"></script>
 	
 	<style>article,#map{width:100%;height:300px;margin:0;padding:0;}.info{padding:6px 8px;font:14px/16px Arial,Helvetica,sans-serif;background:white;background:rgba(255,255,255,0.8);box-shadow:0 0 15px rgba(0,0,0,0.2);border-radius:5px;}.info h4{margin:0 0 5px;color:#777;}#map:-webkit-full-screen{width:100%!important;height:100%!important;}#map:-moz-full-screen{width:100%!important;height:100%!important;}#map:full-screen{width:100%!important;height:100%!important;}.leaflet-control-zoom-fullscreen{background-image:url(http://conmenu.com/resource/js/leaflet_plugins/fullscreen/icon-fullscreen.png);}.leaflet-control-zoom-fullscreen.last{margin-top:5px}</style>
 		
-	<script type="text/javascript" src="lib/js/jquery.mobile-1.3.0.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.mobile-1.3.0.min.js"></script>
 </head>
 <body>
  
@@ -55,8 +52,8 @@
 </div>
 <?php
 			ini_set( "display_errors", 0);
-			include_once 'dbconnector.php';
-			/* Jegliche Variablen der Getter zum Abrufen der aktuellsten Daten */
+			include_once '../php/dbconnector.php';
+			/* Every variable of the getter functions to get the actual data */
 			$eggname = getName();				
 			$eggfoi = getFoiIdMap();
 			$eggcoords = getEggCoords();
@@ -77,35 +74,37 @@
 			$lanuvo3 = getLatestLanuvOffering('O3_CONCENTRATION');
 			$lanuvtime = getLatestLanuvTimeStamp();
 			
-			/* Definition von heute und vorgestern für die Weiterleitung der Tabelle aus dem Popup.
-				Bei dem heutigen Tag muss ein Tag aufaddiert werden, da der Datepicker sonst <$heute annimmt, statt <=$heute */
+			/* Define today and two days ago for the redirection from the popup to the table.
+				To totday a day must be added up so the datepicker chooses the correct day. */
+				
 			$vorgestern = date("Y-m-d", strtotime("-2 day"));
 			$heute = date("Y-m-d", strtotime("+1 day"));
 
 		?>
-<script language="javascript" type="text/javascript">
+		
+		<script language="javascript" type="text/javascript">
 		
 		var map;
 
 		function load_map() {
 			
-			map = new L.map('map', {zoomControl: true}).setView([51.947, 7.61],13);
+			map = new L.map('map', {zoomControl: true}).setView([51.947, 7.62],13);
 			L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 				maxZoom: 18,
 				attribution: 'Map data &copy; 2012 <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
 			}).addTo(map);
 			var eggIcon = L.icon({
-				iconUrl: 'images/egg_v1.png',
+				iconUrl: '../images/egg_v1.png',
 				iconSize: [22,28]
 			});
 			var lanuvIcon = L.icon({
-				iconUrl: 'images/lanuv_antenna.png',
+				iconUrl: '../images/lanuv_antenna.png',
 				iconSize: [28,30]
 			});
 						
 			var i = 0;						
-			var EierLayer = new Array();	// Verwendet für die Layerauswahl der Eier
-			/* -------Json Kodierung der am Anfang definierten Variablen. eval() damit auch was dem Objekt zugeordnet wird------- */
+			var EierLayer = new Array();	// Used for the layer selection of the eggs
+			/* -------Json encoding of the variables at the beginning. eval() so something will be added to the object------- */
 			var EierNamen = eval(' (' + <?php print json_encode(json_encode($eggname)); ?> + ')');
 			var EierFoi = eval(' (' + <?php print json_encode(json_encode($eggfoi)); ?> + ')');
 			var EierCoords = eval( ' (' + <?php print json_encode(json_encode($eggcoords)); ?> + ')');
@@ -116,15 +115,15 @@
 			var EierO3 = eval( ' (' + <?php print json_encode(json_encode($eggo3)); ?> + ')');
 			var EierTime = eval( ' (' + <?php print json_encode(json_encode($eggtime)); ?> + ')');
 			
-			while (i <= EierFoi.length - 1) {						// für alle Eier durchlaufen, welche sich in der Datenbank befinden
-				var EggName = EierNamen[i].feature_of_interest_name;	// Einamen auslesen
+			while (i <= EierFoi.length - 1) {						// passing through all eggs which are saved in the database
+				var EggName = EierNamen[i].feature_of_interest_name;	// get the egg name
 				
 				var EggFoi = EierFoi[i].feature_of_interest_id;
 				
-				var EggCoordX = EierCoords[i].st_y;		// Eikoordinaten. x und y Koordinate sind in der Datenbank vertauscht
+				var EggCoordX = EierCoords[i].st_y;		// egg coordinates. x are y coordinate are swapped in the database
 				var EggCoordY = EierCoords[i].st_x;
 				
-				/* Ausgabe der ganzen Messwerte. Wenn kein Wert vorhanden ist wird ' - ' ins Feld geschrieben */
+				/* Output of all values. If there is no value a '-' is written */
 				
 				if (EierTemp[i] === undefined) {var EggTemp = '-'}	 
 				else var EggTemp = EierTemp[i].numeric_value;			
@@ -144,8 +143,8 @@
 				if (EierTime[i] === undefined) {var EggTime = '-'}
 				else var EggTime = EierTime[i].time_stamp;
 			
-				/* Erstellen für Popups für jedes Ei. Marker wird an Koordinaten gebunden und enthält Verlinkungen zu Wikipedia-Artikeln.
-					Bei der Tabellenverlinkung wird eine Tabelle erstellt mit den Messwerten von heute, gestern und vorgestern */
+				/* Create Popups for each egg. Marker is bound to coordinates and containts links to Wikipedia articles.
+					By clicking the link to the table a table is created with measuring values of today, yesterday and two days ago. */
 					
 				var markerEggs = L.marker([EggCoordX, EggCoordY],{icon: eggIcon}).bindPopup(
 					EggName+"</br>Letzte Messung: "+EggTime+"</br><a href=\"http://de.wikipedia.org/wiki/Temperatur\" target=\"_blank\">Temperatur</a>: "
@@ -153,13 +152,14 @@
 					+EggHum+" %</br><a href=\"http://de.wikipedia.org/wiki/Kohlenstoffmonoxid\"target=\"_blank\">Kohlenstoffmonoxid</a>: "
 					+EggCO+" ppm</br><a href=\"http://de.wikipedia.org/wiki/Stickstoffdioxid\"target=\"_blank\">Stickstoffdioxid</a>: "
 					+EggNO2+" ppm</br><a href=\"http://de.wikipedia.org/wiki/Ozon\"target=\"_blank\">Ozon</a>: "
-					+EggO3+" ppm</br></br><a href=\"tabelle2.php?starting=<?php echo $vorgestern?>&ending=<?php echo $heute?>&foiid="+EggFoi+"\"_blank\">Tabelle</a> ")
+					+EggO3+" ppm</br></br><a href=\"Tabelle.php?starting=<?php echo $vorgestern?>&ending=<?php echo $heute?>&foiid="+EggFoi+"\"_blank\">Tabelle</a> "
+					+"<br><a href=\"Diagramme.php\"_blank\">Diagramme</a>")
 					;
-				EierLayer[i] = markerEggs;		// Layer Array für jegliche Eier
+				EierLayer[i] = markerEggs;		// Layer array for all eggs
 				i++;
 			}
 			
-			/* Analog zu dem obigen Teil mit den Air Quality Eggs */
+			/* Analogue to the part above for the Air Quality Eggs */
 			
 			var j = 0;
 			var LanuvLayer = new Array();
@@ -199,30 +199,32 @@
 				if (LanuvTime[j] === undefined) {var LANUVTime = '-'}
 				else var LANUVTime = LanuvTime[j].time_stamp;
 
-				/* Unterscheidung zwischen Geist und Weseler muss erfolgen, da nicht beide Messstationen die selben Messparameter besitzen */
+				/* Distinction between Geist and Weseler is needed, because both measuring stations are not using the same measuring parameters */
 				
 				if (LANUVFoi == 'Geist') {
 					var markerLanuv = L.marker([LANUVCoordX, LANUVCoordY],{icon: lanuvIcon}).bindPopup(
 						LANUVName+"</br>Letzte Messung: "+LANUVTime+"</br><a href=\"http://de.wikipedia.org/wiki/Stickstoffmonoxid\" target=\"_blank\">Stickstoffmonoxid</a>: "
-						+LANUVNO+" µg/m³</br><a href=\"http://de.wikipedia.org/wiki/Stickstoffdioxid\" target=\"_blank\">Stickstoffdioxid</a>: "
-						+LANUVNO2+" µg/m³</br><a href=\"http://de.wikipedia.org/wiki/PM10\" target=\"_blank\">Feinstaub</a>: "
-						+LANUVPM10+" µg/m³</br><a href=\"http://de.wikipedia.org/wiki/Schwefeldioxid\" target=\"_blank\">Schwefeldioxid</a>: "
-						+LANUVSO2+" µg/m³</br><a href=\"http://de.wikipedia.org/wiki/Ozon\" target=\"_blank\">Ozon</a>: "
-						+LANUVO3+" µg/m³</br></br><a href=\"tabelle2.php?starting=<?php echo $vorgestern?>&ending=<?php echo $heute?>&foiid="+LANUVFoi+"\"_blank\">Tabelle</a> ")
+						+Math.round((LANUVNO / 1.23) * 100000) / 100000 +" ppm</br><a href=\"http://de.wikipedia.org/wiki/Stickstoffdioxid\" target=\"_blank\">Stickstoffdioxid</a>: "
+						+Math.round((LANUVNO2 * 0.000532) * 100000) / 1000000 +" ppm</br><a href=\"http://de.wikipedia.org/wiki/PM10\" target=\"_blank\">Feinstaub</a>: "
+						+Math.round(LANUVPM10 * 100000) / 100000 +" &micro;g/m&sup3;</br><a href=\"http://de.wikipedia.org/wiki/Schwefeldioxid\" target=\"_blank\">Schwefeldioxid</a>: "
+						+Math.round((LANUVSO2 / 2.86) * 100000) / 100000 +" ppm</br><a href=\"http://de.wikipedia.org/wiki/Ozon\" target=\"_blank\">Ozon</a>: "
+						+Math.round((LANUVO3 * 2 / 1000) * 100000) / 100000 +" ppm</br></br><a href=\"Tabelle.php?starting=<?php echo $vorgestern?>&ending=<?php echo $heute?>&foiid="+LANUVFoi+"\"_blank\">Tabelle</a> "
+						+"<br><a href=\"Diagramme.php\"_blank\">Diagramme</a>")
 					;
 				}
 				else {
 					var markerLanuv = L.marker([LANUVCoordX, LANUVCoordY],{icon: lanuvIcon}).bindPopup(
 						LANUVName+"</br>Letzte Messung: "+LANUVTime+"</br><a href=\"http://de.wikipedia.org/wiki/Stickstoffmonoxid\" target=\"_blank\">Stickstoffmonoxid</a>: "
-						+LANUVNO+" µg/m³</br><a href=\"http://de.wikipedia.org/wiki/Stickstoffdioxid\" target=\"_blank\">Stickstoffdioxid</a>: "
-						+LANUVNO2+" µg/m³</br><a href=\"http://de.wikipedia.org/wiki/PM10\" target=\"_blank\">Feinstaub</a>: "
-						+LANUVPM10+" µg/m³</br></br><a href=\"tabelle2.php?starting=<?php echo $vorgestern?>&ending=<?php echo $heute?>&foiid="+LANUVFoi+"\"_blank\">Tabelle</a> ")
+						+Math.round((LANUVNO / 1.23) * 100000) / 100000 +" ppm</br><a href=\"http://de.wikipedia.org/wiki/Stickstoffdioxid\" target=\"_blank\">Stickstoffdioxid</a>: "
+						+Math.round((LANUVNO2 * 0.000532) * 100000) / 100000 +" ppm</br><a href=\"http://de.wikipedia.org/wiki/PM10\" target=\"_blank\">Feinstaub</a>: "
+						+Math.round((LANUVPM10 * 59.26902) * 100000) / 100000 +" &micro;g/m&sup3;</br></br><a href=\"Tabelle.php?starting=<?php echo $vorgestern?>&ending=<?php echo $heute?>&foiid="+LANUVFoi+"\"_blank\">Tabelle</a> "
+						+"<br><a href=\"Diagramme.php\"_blank\">Diagramme</a>")
 					;
 				}
 				LanuvLayer[j] = markerLanuv;
 				j++;
 			}
-			/* Definierung der beiden Layergruppen und hinzufügen zur Karte */
+			/* Defining both layer groups and add them to the map */
 			var AQEs = L.layerGroup(EierLayer);
 			var Lanuvs = L.layerGroup(LanuvLayer);
 			
@@ -237,10 +239,8 @@
 			
 		}
 
-		
-	
 		window.onload = load_map;
 		
-		</script>	
+		</script>
 </body>
 </html>
