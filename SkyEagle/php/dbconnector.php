@@ -162,7 +162,7 @@ function getObservationValuesNo($foi_id, $start_date, $end_date){
 						FROM observation NATURAL JOIN quality
 						WHERE (feature_of_interest_id = '$foi_id') AND (quality_value='no') AND (time_stamp >= '$start_date'::date) AND (time_stamp < ('$end_date'::date + INTERVAL '1 day'))
 						AND (offering_id = '$offering1') 
-						ORDER BY time_stamp ASC");
+						ORDER BY time_stamp, offering_id ASC");
 				return pg_fetch_all($result);
 				break;
 					
@@ -173,7 +173,7 @@ function getObservationValuesNo($foi_id, $start_date, $end_date){
 						FROM observation NATURAL JOIN quality
 						WHERE (feature_of_interest_id = '$foi_id') AND (quality_value='no') AND (time_stamp >= '$start_date'::date) AND (time_stamp < ('$end_date'::date + INTERVAL '1 day'))
 						AND ((offering_id = '$offering1') OR (offering_id = '$offering2')) 
-						ORDER BY time_stamp ASC");
+						ORDER BY time_stamp, offering_id ASC");
 				return pg_fetch_all($result);
 				break;
 
@@ -185,7 +185,7 @@ function getObservationValuesNo($foi_id, $start_date, $end_date){
 						FROM observation NATURAL JOIN quality
 						WHERE (feature_of_interest_id = '$foi_id') AND (quality_value='no') AND (time_stamp >= '$start_date'::date) AND (time_stamp < ('$end_date'::date + INTERVAL '1 day'))
 						AND ((offering_id = '$offering1') OR (offering_id = '$offering2') OR (offering_id = '$offering3')) 
-						ORDER BY time_stamp ASC");
+						ORDER BY time_stamp, offering_id ASC");
 				return pg_fetch_all($result);
 				break;
 				
@@ -198,7 +198,7 @@ function getObservationValuesNo($foi_id, $start_date, $end_date){
 						FROM observation NATURAL JOIN quality
 						WHERE (feature_of_interest_id = '$foi_id') AND (quality_value='no') AND (time_stamp >= '$start_date'::date) AND (time_stamp < ('$end_date'::date + INTERVAL '1 day'))
 						AND ((offering_id = '$offering1') OR (offering_id = '$offering2') OR (offering_id = '$offering3') OR (offering_id = '$offering4')) 
-						ORDER BY time_stamp ASC");
+						ORDER BY time_stamp, offering_id ASC");
 					return pg_fetch_all($result);
 					break;
 				
@@ -212,7 +212,7 @@ function getObservationValuesNo($foi_id, $start_date, $end_date){
 						FROM observation NATURAL JOIN quality
 						WHERE (feature_of_interest_id = '$foi_id') AND (quality_value='no') AND (time_stamp >= '$start_date'::date) AND (time_stamp < ('$end_date'::date + INTERVAL '1 day'))
 						AND ((offering_id = '$offering1') OR (offering_id = '$offering2') OR (offering_id = '$offering3') OR (offering_id = '$offering4') OR (offering_id = '$offering5')) 
-						ORDER BY time_stamp ASC");
+						ORDER BY time_stamp, offering_id ASC");
 					return pg_fetch_all($result);
 					break;
 		}
@@ -231,7 +231,7 @@ function getObservationValuesYes($foi_id, $start_date, $end_date){
 						FROM observation NATURAL JOIN quality
 						WHERE (feature_of_interest_id = '$foi_id') AND (quality_value='yes') AND (time_stamp >= '$start_date'::date) AND (time_stamp < ('$end_date'::date + INTERVAL '1 day'))
 						AND (offering_id = '$offering1')
-						ORDER BY time_stamp ASC");
+						ORDER BY time_stamp, offering_id ASC");
 						return pg_fetch_all($result);
 						break;
 							
@@ -242,7 +242,7 @@ function getObservationValuesYes($foi_id, $start_date, $end_date){
 						FROM observation NATURAL JOIN quality
 						WHERE (feature_of_interest_id = '$foi_id') AND (quality_value='yes') AND (time_stamp >= '$start_date'::date) AND (time_stamp < ('$end_date'::date + INTERVAL '1 day'))
 						AND ((offering_id = '$offering1') OR (offering_id = '$offering2'))
-						ORDER BY time_stamp ASC");
+						ORDER BY time_stamp, offering_id ASC");
 						return pg_fetch_all($result);
 							break;
 
@@ -254,7 +254,7 @@ function getObservationValuesYes($foi_id, $start_date, $end_date){
 							FROM observation NATURAL JOIN quality
 							WHERE (feature_of_interest_id = '$foi_id') AND (quality_value='yes') AND (time_stamp >= '$start_date'::date) AND (time_stamp < ('$end_date'::date + INTERVAL '1 day'))
 							AND ((offering_id = '$offering1') OR (offering_id = '$offering2') OR (offering_id = '$offering3'))
-							ORDER BY time_stamp ASC");
+							ORDER BY time_stamp, offering_id ASC");
 							return pg_fetch_all($result);
 							break;
 
@@ -267,7 +267,7 @@ function getObservationValuesYes($foi_id, $start_date, $end_date){
 							FROM observation NATURAL JOIN quality
 							WHERE (feature_of_interest_id = '$foi_id') AND (quality_value='yes') AND (time_stamp >= '$start_date'::date) AND (time_stamp < ('$end_date'::date + INTERVAL '1 day'))
 							AND ((offering_id = '$offering1') OR (offering_id = '$offering2') OR (offering_id = '$offering3') OR (offering_id = '$offering4'))
-							ORDER BY time_stamp ASC");
+							ORDER BY time_stamp, offering_id ASC");
 							return pg_fetch_all($result);
 							break;
 
@@ -281,7 +281,7 @@ function getObservationValuesYes($foi_id, $start_date, $end_date){
 							FROM observation NATURAL JOIN quality
 							WHERE (feature_of_interest_id = '$foi_id') AND (quality_value='yes') AND (time_stamp >= '$start_date'::date) AND (time_stamp < ('$end_date'::date + INTERVAL '1 day'))
 							AND ((offering_id = '$offering1') OR (offering_id = '$offering2') OR (offering_id = '$offering3') OR (offering_id = '$offering4') OR (offering_id = '$offering5'))
-						ORDER BY time_stamp ASC");
+						ORDER BY time_stamp, offering_id ASC");
 					return pg_fetch_all($result);
 					break;
 		}
