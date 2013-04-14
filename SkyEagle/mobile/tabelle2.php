@@ -7,17 +7,11 @@ include '../php/tabform.php'
  	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
 	<title>SkyEagle - Tabelle</title>
-	<!--link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" /-->
     
-	<link rel="stylesheet" type="text/css" href="../css/jquery.mobile-1.3.0.min.css">
-	<link rel="stylesheet" type="text/css" href="../css/leaflet.css">
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
 	
 	<script src="https://www.google.com/jsapi"></script>
-	<script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
-	<script type="text/javascript" src="../js/leaflet.js"></script>
-	
-	<style>article,#map{width:100%;height:300px;margin:0;padding:0;}.info{padding:6px 8px;font:14px/16px Arial,Helvetica,sans-serif;background:white;background:rgba(255,255,255,0.8);box-shadow:0 0 15px rgba(0,0,0,0.2);border-radius:5px;}.info h4{margin:0 0 5px;color:#777;}#map:-webkit-full-screen{width:100%!important;height:100%!important;}#map:-moz-full-screen{width:100%!important;height:100%!important;}#map:full-screen{width:100%!important;height:100%!important;}.leaflet-control-zoom-fullscreen{background-image:url(http://conmenu.com/resource/js/leaflet_plugins/fullscreen/icon-fullscreen.png);}.leaflet-control-zoom-fullscreen.last{margin-top:5px}</style>
-
+	<script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>	
 	<script type="text/javascript" src="../js/jquery.mobile-1.3.0.min.js"></script>
 
 </head>
@@ -25,18 +19,16 @@ include '../php/tabform.php'
   <body>
  
 	<div data-role="page" id="tabelle">
-
+	<!-- create header with navbar-->
   	<div data-role="header" data-position="fixed">
 		<a href="homemobile.php" data-rel="back">Zurück</a>
-		<!--a href="index.html" data-icon="delete">Cancel</a-->
 		<h1>SkyEagle - Tabelle</h1>
 		<a href="hilfe.php">Hilfe</a>
-		<!--a href="index.html" data-icon="check">Save</a-->
 		<div data-role="navbar">
 		<ul>
 			<li><a href="homemobile.php">Home</a></li>
 			<li><a href="map.php" rel="external">Karte</a></li>
-			<li><a href="dia.php">Diagramm</a></li>
+			<li><a href="dia.php" rel="external">Diagramm</a></li>
 			<li><a href="tabelle.php">Tabelle</a></li>
 		</ul>
 		</div><!-- /navbar -->
@@ -306,7 +298,7 @@ include '../php/tabform.php'
 									elseif ($no2out == 'yes') echo '<span style="color:#FF0000">'.$no2.'</span>';
 										else echo '<span style="color:#0000CC">'.$no2.'</span>'?></td>
 						<td><?php if ($o3out == 'no') echo $o3;
-									elseif ($tempout == 'yes') echo '<span style="color:#FF0000">'.$o3.'</span>';
+									elseif ($o3out == 'yes') echo '<span style="color:#FF0000">'.$o3.'</span>';
 										else echo '<span style="color:#0000CC">'.$o3.'</span>'?></td>
 					</tr>
 					

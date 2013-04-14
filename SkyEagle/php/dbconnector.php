@@ -89,30 +89,22 @@ function getObservationValues($foi_id, $start_date, $end_date){
 		switch($numargs){
 			case 4:
 				$offering1 = func_get_arg(3);
-				$result = pg_query($conn, "(SELECT time_stamp :: timestamp without time zone, offering_id, numeric_value
+				$result = pg_query($conn, "SELECT time_stamp :: timestamp without time zone, offering_id, numeric_value
 						FROM observation
-						WHERE (feature_of_interest_id = '$foi_id') AND (time_stamp >= '$start_date'::date) 
-						AND (offering_id = '$offering1'))
-						INTERSECT
-						(SELECT time_stamp :: timestamp without time zone, offering_id, numeric_value
-						FROM observation
-						WHERE (feature_of_interest_id = '$foi_id') AND  (time_stamp <= '$end_date'::date) 
-						AND (offering_id = '$offering1')) ORDER BY time_stamp ASC");
+						WHERE (feature_of_interest_id = '$foi_id') AND (time_stamp >= '$start_date'::date) AND (time_stamp < ('$end_date'::date + INTERVAL '1 day'))
+						AND (offering_id = '$offering1') 
+						ORDER BY time_stamp ASC");
 				return pg_fetch_all($result);
 				break;
 			
 			case 5:
 				$offering1 = func_get_arg(3);
 				$offering2 = func_get_arg(4);
-				$result = pg_query($conn, "(SELECT time_stamp :: timestamp without time zone, offering_id, numeric_value
+				$result = pg_query($conn, "SELECT time_stamp :: timestamp without time zone, offering_id, numeric_value
 						FROM observation
-						WHERE (feature_of_interest_id = '$foi_id')  AND (time_stamp >= '$start_date'::date) 
-						AND ((offering_id = '$offering1') OR (offering_id = '$offering2')))
-						INTERSECT
-						(SELECT time_stamp :: timestamp without time zone, offering_id, numeric_value
-						FROM observation
-						WHERE (feature_of_interest_id = '$foi_id') AND  (time_stamp <= '$end_date'::date) 
-						AND ((offering_id = '$offering1') OR (offering_id = '$offering2'))) ORDER BY time_stamp, offering_id ASC");
+						WHERE (feature_of_interest_id = '$foi_id') AND (time_stamp >= '$start_date'::date) AND (time_stamp < ('$end_date'::date + INTERVAL '1 day'))
+						AND ((offering_id = '$offering1') OR (offering_id = '$offering2')) 
+						ORDER BY time_stamp, offering_id ASC");
 				return pg_fetch_all($result);
 				break;
 				
@@ -120,15 +112,11 @@ function getObservationValues($foi_id, $start_date, $end_date){
 				$offering1 = func_get_arg(3);
 				$offering2 = func_get_arg(4);
 				$offering3 = func_get_arg(5);
-				$result = pg_query($conn, "(SELECT time_stamp :: timestamp without time zone, offering_id, numeric_value
+				$result = pg_query($conn, "SELECT time_stamp :: timestamp without time zone, offering_id, numeric_value
 						FROM observation
-						WHERE (feature_of_interest_id = '$foi_id') AND (time_stamp >= '$start_date'::date) 
-						AND ((offering_id = '$offering1')  OR (offering_id = '$offering2') OR (offering_id = '$offering3')))
-						INTERSECT
-						(SELECT time_stamp :: timestamp without time zone, offering_id, numeric_value
-						FROM observation
-						WHERE (feature_of_interest_id = '$foi_id') AND  (time_stamp <= '$end_date'::date) 
-						AND ((offering_id = '$offering1')  OR (offering_id = '$offering2') OR (offering_id = '$offering3'))) ORDER BY time_stamp, offering_id ASC");
+						WHERE (feature_of_interest_id = '$foi_id') AND (time_stamp >= '$start_date'::date) AND (time_stamp < ('$end_date'::date + INTERVAL '1 day'))
+						AND ((offering_id = '$offering1') OR (offering_id = '$offering2') OR (offering_id = '$offering3')) 
+						ORDER BY time_stamp, offering_id ASC");
 				return pg_fetch_all($result);
 				break;
 
@@ -137,15 +125,11 @@ function getObservationValues($foi_id, $start_date, $end_date){
 				$offering2 = func_get_arg(4);
 				$offering3 = func_get_arg(5);
 				$offering4 = func_get_arg(6);
-				$result = pg_query($conn, "(SELECT time_stamp :: timestamp without time zone, offering_id, numeric_value
+				$result = pg_query($conn, "SELECT time_stamp :: timestamp without time zone, offering_id, numeric_value
 						FROM observation
-						WHERE (feature_of_interest_id = '$foi_id') AND (time_stamp >= '$start_date'::date)
-						AND ((offering_id = '$offering1')  OR (offering_id = '$offering2') OR (offering_id = '$offering3') OR (offering_id = '$offering4')))
-						INTERSECT
-						(SELECT time_stamp :: timestamp without time zone, offering_id, numeric_value
-						FROM observation
-						WHERE (feature_of_interest_id = '$foi_id') AND  (time_stamp <= '$end_date'::date)
-						AND ((offering_id = '$offering1')  OR (offering_id = '$offering2') OR (offering_id = '$offering3') OR (offering_id = '$offering4'))) ORDER BY time_stamp, offering_id ASC");
+						WHERE (feature_of_interest_id = '$foi_id') AND (time_stamp >= '$start_date'::date) AND (time_stamp < ('$end_date'::date + INTERVAL '1 day'))
+						AND ((offering_id = '$offering1') OR (offering_id = '$offering2') OR (offering_id = '$offering3') OR (offering_id = '$offering4')) 
+						ORDER BY time_stamp, offering_id ASC");
 				return pg_fetch_all($result);
 				break;				
 				
@@ -155,22 +139,18 @@ function getObservationValues($foi_id, $start_date, $end_date){
 				$offering3 = func_get_arg(5);
 				$offering4 = func_get_arg(6);
 				$offering5 = func_get_arg(7);
-				$result = pg_query($conn, "(SELECT time_stamp :: timestamp without time zone, offering_id, numeric_value
+				$result = pg_query($conn, "SELECT time_stamp :: timestamp without time zone, offering_id, numeric_value
 						FROM observation
-						WHERE (feature_of_interest_id = '$foi_id') AND (time_stamp >= '$start_date'::date) 
-						AND ((offering_id = '$offering1')  OR (offering_id = '$offering2') OR (offering_id = '$offering3') OR (offering_id = '$offering4') OR (offering_id = '$offering5')))
-						INTERSECT
-						(SELECT time_stamp :: timestamp without time zone, offering_id, numeric_value
-						FROM observation
-						WHERE (feature_of_interest_id = '$foi_id') AND  (time_stamp <= '$end_date'::date) 
-						AND ((offering_id = '$offering1')  OR (offering_id = '$offering2') OR (offering_id = '$offering3') OR (offering_id = '$offering4') OR (offering_id = '$offering5'))) ORDER BY time_stamp, offering_id ASC");
+						WHERE (feature_of_interest_id = '$foi_id') AND (time_stamp >= '$start_date'::date) AND (time_stamp < ('$end_date'::date + INTERVAL '1 day'))
+						AND ((offering_id = '$offering1') OR (offering_id = '$offering2') OR (offering_id = '$offering3') OR (offering_id = '$offering4') OR (offering_id = '$offering5')) 
+						ORDER BY time_stamp, offering_id ASC");
 				return pg_fetch_all($result);
 				break;
 		}
 	}
 }
 
-/* Get the observation of one feature of interest with outliers = yes => show only outlier-values */
+/* Get the observation of one feature of interest without outliers */
 function getObservationValuesNo($foi_id, $start_date, $end_date){
 	global $conn;
 	if (isset ($foi_id) AND isset($start_date) AND isset($end_date)){
@@ -178,30 +158,22 @@ function getObservationValuesNo($foi_id, $start_date, $end_date){
 		switch($numargs){
 			case 4:
 				$offering1 = func_get_arg(3);
-				$result = pg_query($conn, "(SELECT time_stamp :: timestamp without time zone, offering_id, numeric_value
+				$result = pg_query($conn, "SELECT time_stamp :: timestamp without time zone, offering_id, numeric_value
 						FROM observation NATURAL JOIN quality
-						WHERE (feature_of_interest_id = '$foi_id') AND (quality_value='no') AND (time_stamp >= '$start_date'::date)
-						AND (offering_id = '$offering1'))
-						INTERSECT
-						(SELECT time_stamp :: timestamp without time zone, offering_id, numeric_value
-						FROM observation NATURAL JOIN quality
-						WHERE (feature_of_interest_id = '$foi_id') AND (quality_value='no') AND (time_stamp <= '$end_date'::date)
-						AND (offering_id = '$offering1')) ORDER BY time_stamp ASC");
+						WHERE (feature_of_interest_id = '$foi_id') AND (quality_value='no') AND (time_stamp >= '$start_date'::date) AND (time_stamp < ('$end_date'::date + INTERVAL '1 day'))
+						AND (offering_id = '$offering1') 
+						ORDER BY time_stamp ASC");
 				return pg_fetch_all($result);
 				break;
 					
 			case 5:
 				$offering1 = func_get_arg(3);
 				$offering2 = func_get_arg(4);
-				$result = pg_query($conn, "(SELECT time_stamp :: timestamp without time zone, offering_id, numeric_value
+				$result = pg_query($conn, "SELECT time_stamp :: timestamp without time zone, offering_id, numeric_value
 						FROM observation NATURAL JOIN quality
-						WHERE (feature_of_interest_id = '$foi_id') AND (quality_value='no') AND (time_stamp >= '$start_date'::date)
-						AND ((offering_id = '$offering1') OR (offering_id = '$offering2')))
-						INTERSECT
-						(SELECT time_stamp :: timestamp without time zone, offering_id, numeric_value
-						FROM observation NATURAL JOIN quality
-						WHERE (feature_of_interest_id = '$foi_id') AND (quality_value='no') AND (time_stamp <= '$end_date'::date)
-						AND ((offering_id = '$offering1') OR (offering_id = '$offering2'))) ORDER BY time_stamp, offering_id ASC");
+						WHERE (feature_of_interest_id = '$foi_id') AND (quality_value='no') AND (time_stamp >= '$start_date'::date) AND (time_stamp < ('$end_date'::date + INTERVAL '1 day'))
+						AND ((offering_id = '$offering1') OR (offering_id = '$offering2')) 
+						ORDER BY time_stamp ASC");
 				return pg_fetch_all($result);
 				break;
 
@@ -209,15 +181,11 @@ function getObservationValuesNo($foi_id, $start_date, $end_date){
 				$offering1 = func_get_arg(3);
 				$offering2 = func_get_arg(4);
 				$offering3 = func_get_arg(5);
-				$result = pg_query($conn, "(SELECT time_stamp :: timestamp without time zone, offering_id, numeric_value
+				$result = pg_query($conn, "SELECT time_stamp :: timestamp without time zone, offering_id, numeric_value
 						FROM observation NATURAL JOIN quality
-						WHERE (feature_of_interest_id = '$foi_id') AND (quality_value='no') AND (time_stamp >= '$start_date'::date)
-						AND ((offering_id = '$offering1')  OR (offering_id = '$offering2') OR (offering_id = '$offering3')))
-						INTERSECT
-						(SELECT time_stamp :: timestamp without time zone, offering_id, numeric_value
-						FROM observation NATURAL JOIN quality
-						WHERE (feature_of_interest_id = '$foi_id') AND (quality_value='no') AND (time_stamp <= '$end_date'::date)
-						AND ((offering_id = '$offering1')  OR (offering_id = '$offering2') OR (offering_id = '$offering3'))) ORDER BY time_stamp, offering_id ASC");
+						WHERE (feature_of_interest_id = '$foi_id') AND (quality_value='no') AND (time_stamp >= '$start_date'::date) AND (time_stamp < ('$end_date'::date + INTERVAL '1 day'))
+						AND ((offering_id = '$offering1') OR (offering_id = '$offering2') OR (offering_id = '$offering3')) 
+						ORDER BY time_stamp ASC");
 				return pg_fetch_all($result);
 				break;
 				
@@ -226,15 +194,11 @@ function getObservationValuesNo($foi_id, $start_date, $end_date){
 					$offering2 = func_get_arg(4);
 					$offering3 = func_get_arg(5);
 					$offering4 = func_get_arg(6);
-					$result = pg_query($conn, "(SELECT time_stamp :: timestamp without time zone, offering_id, numeric_value
-							FROM observation NATURAL JOIN quality
-							WHERE (feature_of_interest_id = '$foi_id') AND (quality_value='no') AND (time_stamp >= '$start_date'::date)
-							AND ((offering_id = '$offering1')  OR (offering_id = '$offering2') OR (offering_id = '$offering3') OR (offering_id = '$offering4')))
-							INTERSECT
-							(SELECT time_stamp :: timestamp without time zone, offering_id, numeric_value
-							FROM observation NATURAL JOIN quality
-							WHERE (feature_of_interest_id = '$foi_id') AND  (quality_value='no') AND (time_stamp <= '$end_date'::date)
-							AND ((offering_id = '$offering1')  OR (offering_id = '$offering2') OR (offering_id = '$offering3') OR (offering_id = '$offering4'))) ORDER BY time_stamp, offering_id ASC");
+					$result = pg_query($conn, "SELECT time_stamp :: timestamp without time zone, offering_id, numeric_value
+						FROM observation NATURAL JOIN quality
+						WHERE (feature_of_interest_id = '$foi_id') AND (quality_value='no') AND (time_stamp >= '$start_date'::date) AND (time_stamp < ('$end_date'::date + INTERVAL '1 day'))
+						AND ((offering_id = '$offering1') OR (offering_id = '$offering2') OR (offering_id = '$offering3') OR (offering_id = '$offering4')) 
+						ORDER BY time_stamp ASC");
 					return pg_fetch_all($result);
 					break;
 				
@@ -244,15 +208,80 @@ function getObservationValuesNo($foi_id, $start_date, $end_date){
 					$offering3 = func_get_arg(5);
 					$offering4 = func_get_arg(6);
 					$offering5 = func_get_arg(7);
-					$result = pg_query($conn, "(SELECT time_stamp :: timestamp without time zone, offering_id, numeric_value
+					$result = pg_query($conn, "SELECT time_stamp :: timestamp without time zone, offering_id, numeric_value
+						FROM observation NATURAL JOIN quality
+						WHERE (feature_of_interest_id = '$foi_id') AND (quality_value='no') AND (time_stamp >= '$start_date'::date) AND (time_stamp < ('$end_date'::date + INTERVAL '1 day'))
+						AND ((offering_id = '$offering1') OR (offering_id = '$offering2') OR (offering_id = '$offering3') OR (offering_id = '$offering4') OR (offering_id = '$offering5')) 
+						ORDER BY time_stamp ASC");
+					return pg_fetch_all($result);
+					break;
+		}
+	}
+}
+
+/* Get the observation of one feature of interest without outliers */
+function getObservationValuesYes($foi_id, $start_date, $end_date){
+	global $conn;
+	if (isset ($foi_id) AND isset($start_date) AND isset($end_date)){
+		$numargs = func_num_args();
+		switch($numargs){
+			case 4:
+				$offering1 = func_get_arg(3);
+				$result = pg_query($conn, "SELECT time_stamp :: timestamp without time zone, offering_id, numeric_value
+						FROM observation NATURAL JOIN quality
+						WHERE (feature_of_interest_id = '$foi_id') AND (quality_value='yes') AND (time_stamp >= '$start_date'::date) AND (time_stamp < ('$end_date'::date + INTERVAL '1 day'))
+						AND (offering_id = '$offering1')
+						ORDER BY time_stamp ASC");
+						return pg_fetch_all($result);
+						break;
+							
+						case 5:
+						$offering1 = func_get_arg(3);
+						$offering2 = func_get_arg(4);
+						$result = pg_query($conn, "SELECT time_stamp :: timestamp without time zone, offering_id, numeric_value
+						FROM observation NATURAL JOIN quality
+						WHERE (feature_of_interest_id = '$foi_id') AND (quality_value='yes') AND (time_stamp >= '$start_date'::date) AND (time_stamp < ('$end_date'::date + INTERVAL '1 day'))
+						AND ((offering_id = '$offering1') OR (offering_id = '$offering2'))
+						ORDER BY time_stamp ASC");
+						return pg_fetch_all($result);
+							break;
+
+							case 6:
+							$offering1 = func_get_arg(3);
+							$offering2 = func_get_arg(4);
+							$offering3 = func_get_arg(5);
+							$result = pg_query($conn, "SELECT time_stamp :: timestamp without time zone, offering_id, numeric_value
 							FROM observation NATURAL JOIN quality
-							WHERE (feature_of_interest_id = '$foi_id') AND (quality_value='no') AND (time_stamp >= '$start_date'::date)
-							AND ((offering_id = '$offering1')  OR (offering_id = '$offering2') OR (offering_id = '$offering3') OR (offering_id = '$offering4') OR (offering_id = '$offering5')))
-							INTERSECT
-							(SELECT time_stamp :: timestamp without time zone, offering_id, numeric_value
+							WHERE (feature_of_interest_id = '$foi_id') AND (quality_value='yes') AND (time_stamp >= '$start_date'::date) AND (time_stamp < ('$end_date'::date + INTERVAL '1 day'))
+							AND ((offering_id = '$offering1') OR (offering_id = '$offering2') OR (offering_id = '$offering3'))
+							ORDER BY time_stamp ASC");
+							return pg_fetch_all($result);
+							break;
+
+							case 7:
+							$offering1 = func_get_arg(3);
+							$offering2 = func_get_arg(4);
+							$offering3 = func_get_arg(5);
+							$offering4 = func_get_arg(6);
+							$result = pg_query($conn, "SELECT time_stamp :: timestamp without time zone, offering_id, numeric_value
 							FROM observation NATURAL JOIN quality
-							WHERE (feature_of_interest_id = '$foi_id') AND (quality_value='no') AND (time_stamp <= '$end_date'::date)
-							AND ((offering_id = '$offering1')  OR (offering_id = '$offering2') OR (offering_id = '$offering3') OR (offering_id = '$offering4') OR (offering_id = '$offering5'))) ORDER BY time_stamp, offering_id ASC");
+							WHERE (feature_of_interest_id = '$foi_id') AND (quality_value='yes') AND (time_stamp >= '$start_date'::date) AND (time_stamp < ('$end_date'::date + INTERVAL '1 day'))
+							AND ((offering_id = '$offering1') OR (offering_id = '$offering2') OR (offering_id = '$offering3') OR (offering_id = '$offering4'))
+							ORDER BY time_stamp ASC");
+							return pg_fetch_all($result);
+							break;
+
+							case 8:
+							$offering1 = func_get_arg(3);
+							$offering2 = func_get_arg(4);
+							$offering3 = func_get_arg(5);
+							$offering4 = func_get_arg(6);
+							$offering5 = func_get_arg(7);
+							$result = pg_query($conn, "SELECT time_stamp :: timestamp without time zone, offering_id, numeric_value
+							FROM observation NATURAL JOIN quality
+							WHERE (feature_of_interest_id = '$foi_id') AND (quality_value='yes') AND (time_stamp >= '$start_date'::date) AND (time_stamp < ('$end_date'::date + INTERVAL '1 day'))
+							AND ((offering_id = '$offering1') OR (offering_id = '$offering2') OR (offering_id = '$offering3') OR (offering_id = '$offering4') OR (offering_id = '$offering5'))
+						ORDER BY time_stamp ASC");
 					return pg_fetch_all($result);
 					break;
 		}
@@ -279,7 +308,7 @@ function getTimeStamp($foi_id, $start_date, $end_date){
 	if (isset ($foi_id) AND isset ($start_date) AND isset($end_date)){
 		$result = pg_query($conn, "SELECT distinct time_stamp :: timestamp without time zone
 									FROM observation
-									WHERE (feature_of_interest_id ='$foi_id') AND (time_stamp >= '$start_date'::date) AND (time_stamp <= '$end_date'::date) ORDER BY time_stamp ASC");
+									WHERE (feature_of_interest_id ='$foi_id') AND (time_stamp >= '$start_date'::date) AND (time_stamp <= ('$end_date'::date + INTERVAL '1 day')) ORDER BY time_stamp ASC");
 		return pg_fetch_all($result);	
 	}
 }
@@ -292,38 +321,43 @@ function arrayToJSON($cols, $rows){
 	return $table;
 }
 
+/* Get the Vars ($_GET) */
+function getVar($item){
+	return isset($_GET[$item]) ? $_GET[$item] : '';
+}
+
 //----------------------------------------------------------------------------------------
 
-/* Gibt die Anzahl der benötigten Spalten für die Tabelle zurück */
+/* Get the number of rows of the table */
 
 function getTableNumRows($foi_id, $start_date, $end_date){
 	global $conn;
 	if (isset ($foi_id) AND isset ($start_date) AND isset ($end_date)){
 		$result = pg_query($conn, "SELECT distinct time_stamp
 									FROM observation 
-									WHERE feature_of_interest_id = '$foi_id' AND time_stamp >= '$start_date'::date AND time_stamp <= '$end_date'::date");
+									WHERE feature_of_interest_id = '$foi_id' AND time_stamp >= '$start_date'::date AND time_stamp <= '$end_date'::date + INTERVAL '1 day'");
 		$num = pg_num_rows($result);
 	return $num;
 	}
 }
 
-/* Gibt jegliche Zeitstempel aus im festgelegten Zeitintervall */
+/* Get all time stamps of a given time interval */
 									
 function getTableTimeStamp($foi_id, $start_date, $end_date){
 	global $conn;
 		$result1 = pg_query($conn, "SELECT distinct time_stamp 
 									FROM observation 
-									WHERE feature_of_interest_id = '$foi_id' AND time_stamp >= '$start_date'::date AND time_stamp <= '$end_date'::date ORDER BY time_stamp asc");
+									WHERE feature_of_interest_id = '$foi_id' AND time_stamp >= '$start_date'::date AND time_stamp <= '$end_date'::date + INTERVAL '1 day' ORDER BY time_stamp asc");
 		return $result1;
 }
 
-/* Gibt den zu dem jeweiligen Messparameter den Wert und den Messpunkt aus */
+/* Get the value of a measuring parameter and the time stamp when the measuring was done */
 
 function getTableOffering($foi_id, $start_date, $end_date, $offering_id){
 	global $conn;
 		$result2 = pg_query($conn, "SELECT time_stamp,numeric_value 
 									FROM observation 
-									WHERE feature_of_interest_id = '$foi_id' AND offering_id = '$offering_id' AND time_stamp >= '$start_date'::date AND time_stamp <= '$end_date'::date ORDER BY time_stamp asc");
+									WHERE feature_of_interest_id = '$foi_id' AND offering_id = '$offering_id' AND time_stamp >= '$start_date'::date AND time_stamp <= '$end_date'::date + INTERVAL '1 day' ORDER BY time_stamp asc");
 		return $result2;
 }
 
@@ -344,6 +378,7 @@ function getLanuvName(){
 }
 
 /* Funktion, welche die IDs aller Air Quality Eggs ausgibt. */
+/* Function which gets the ID's of all Air Quality Eggs */
 
 function getFoiIdMap(){
 	global $conn;
@@ -353,17 +388,17 @@ function getFoiIdMap(){
 	return pg_fetch_all($result);
 }
 
-/* Funktion, welche zu den Air Quality Eggs den letzten gemessenen Zeitpunkt ausgibt. */
+/* Function which gets the last measured point of them of all Air Quality Eggs */
 
 function getFoiIdMap2(){
 	global $conn;
 	$result = pg_query($conn, "SELECT feature_of_interest_id,max(time_stamp) 
 								FROM observation natural inner join feature_of_interest 
-								WHERE feature_of_interest_id != 'Geist' AND feature_of_interest_id != 'Weseler' group by feature_of_interest_id");
+								WHERE feature_of_interest_id != 'Geist' AND feature_of_interest_id != 'Weseler' group by feature_of_interest_id order by feature_of_interest_id");
 	return pg_fetch_all($result);
 }
 
-/* Funktion, welche die IDs der Lanuv Messstationen ausgibt. */
+/* Function which gets the ID's of the Lanuv measuring stations */
 
 function getLanuvFoiId(){
 	global $conn;
@@ -373,7 +408,7 @@ function getLanuvFoiId(){
 	return pg_fetch_all($result);
 }
 
-/* Funktion, welche zu den Lanuv Messstationen den letzten gemessenen Zeitpunkt ausgibt. */
+/* Function which gets the last measured point of the Lanuv measuring stations */
 
 function getLanuvFoiId2(){
 	global $conn;
@@ -383,12 +418,11 @@ function getLanuvFoiId2(){
 	return pg_fetch_all($result);
 }
 
-/* Da ein komplette gefülltes Array benötigt wird, um den Air Quality Eggs auf der Karte die richtigen Werte zuzuweisen,
-	wird ein jeweiliges Array befüllt. Dafür wird einmal ein noch teil-befülltes Array und ein Array verwandt, welches alle ID's 
-	der Air Quality Eggs beinhaltet. Daraufhin werden die beiden Arrays immer verglichen, ob das AQE bereits in dem $zufüllende
-	Array vorhanden ist. Ist dies nicht der Fall, so wird die ID des AQE eingetragen. Ebenfalls wird der Time_Stamp kontrolliert.
-	Ist keiner vorhanden, so wird für den maximalen Time_Stamp ein "_" eingetragen.
-	Anschließend wird das befüllte Array zurückgegeben. */
+
+/* Since a complete filled array is needed to assign the correct values to the Air Quality Eggs on the map, a respective array is filled.
+	Therefor a part-filled array and an array which contains all ID's of the Air Quality Eggs are used. Then, the two arrays are always compared,
+	whether the AQE is already in the $zufüllende array or not. If this is not the case, the ID of the AQE is entered. Also, the Time_Stamp
+	is checked. If none exists a "_" is entered into this part of the array. Subsequently the filled array is returned. */
 
 function umwandeln(){
 	$ausgabe = getFoiIdMap();
@@ -407,7 +441,7 @@ function umwandeln(){
 	return $zufüllende;
 }
 
-/* Analog zum Teil obigen Teil für die Lanuv Stationen. */
+/* Analogue to the part above but for the Lanuv stations */
 
 function LANUVumwandeln(){
 	$ausgabe = getLanuvFoiId();
@@ -446,12 +480,12 @@ function getLanuvCoords(){
 	}
 }
 
-/* Funktion um den aktuellsten Messwert zu erhalten. Dabei wird zunächst ein Array befüllt (siehe umwandeln()) und 2 Variablen definiert:
-	$gegenFOI = die gegenwärtige ID
-	$gegenTS = der gegenwärtige TimeStamp
-	Daraufhin wird gecheckt, ob überhaupt etwas in dem aktuellen Arrayelement enthalten ist.
-	Ist etwas enthalten wird die Abfrage durchgeführt. Existiert kein Messwert zum jeweiligen Zeitpunkt, so wird in das Popup auf der Karte
-	ein "-" eingetragen. */
+
+/* Function to get the latest measured value. First an array is filled (see umwandeln()) and two variables are defined:
+	$gegenFOI = the current ID
+	$gegenTS = the current time stamp
+	Subsequently it is checked, whether the actual array element is empty or not. If not, the query is executed. If there is no value at the
+	given time stamp, a "-" will be written into the popup on the map. */
 
 function getLatestOffering($offering_id){
 	global $conn;
@@ -488,7 +522,8 @@ function getLatestTimeStamp(){
 									FROM observation
 									WHERE time_stamp = '$gegenTS' AND feature_of_interest_id = '$gegenFOI'");
 				if (pg_result($result,0,"time_stamp") == false) {$ActualResult = '-';}
-				else {$ActualResult = pg_result($result,0,"time_stamp");}
+				else {$ActualResult = pg_result($result,0,"time_stamp");
+					$ActualResult = date_format(date_create($ActualResult), 'd.m.Y H:i:s');}
 				$TempArray[$i]['feature_of_interest_id'] = $gegenFOI;
 				$TempArray[$i]['time_stamp'] = $ActualResult;
 			}
@@ -497,7 +532,7 @@ function getLatestTimeStamp(){
 		return $TempArray;
 }
 
-/* Analog zu oben */
+/* Analogue to above */
 
 function getLatestLanuvOffering($offering_id){
 	global $conn;
@@ -534,7 +569,8 @@ function getLatestLanuvTimeStamp(){
 									FROM observation
 									WHERE time_stamp = '$gegenTS' AND feature_of_interest_id = '$gegenFOI'");
 				if (pg_result($result,0,"time_stamp") == false) {$ActualResult = '-';}
-				else {$ActualResult = pg_result($result,0,"time_stamp");}
+				else {$ActualResult = pg_result($result,0,"time_stamp");
+					$ActualResult = date_format(date_create($ActualResult), 'd.m.Y H:i:s');}
 				$NOArray[$i]['feature_of_interest_id'] = $gegenFOI;
 				$NOArray[$i]['time_stamp'] = $ActualResult;
 			}
@@ -543,14 +579,14 @@ function getLatestLanuvTimeStamp(){
 		return $NOArray;
 }
 
-/* Die folgenden Funktionen unterscheiden sich zu obigen nur dahingehend, dass sie die Ausreißertabelle aus der Datenbank miteinbeziehen. */
+/* The following functions only differentiate to the above, that they include the the outlier table of the database. */
 
 function getTableBerNumRows($foi_id, $start_date, $end_date){
 	global $conn;
 	if (isset ($foi_id) AND isset ($start_date) AND isset ($end_date)){
 		$result = pg_query($conn, "SELECT distinct time_stamp 
 									FROM observation NATURAL JOIN phenomenon NATURAL JOIN quality 
-									WHERE (feature_of_interest_id = '$foi_id') AND (time_stamp >= '$start_date'::date) AND (time_stamp <= '$end_date'::date)");
+									WHERE (feature_of_interest_id = '$foi_id') AND (time_stamp >= '$start_date'::date) AND (time_stamp <= '$end_date'::date + INTERVAL '1 day')");
 		$num = pg_num_rows($result);
 	return $num;
 	}
@@ -560,7 +596,7 @@ function getTableBerTimeStamp($foi_id, $start_date, $end_date){
 	global $conn;
 		$result1 = pg_query($conn, "SELECT distinct time_stamp 
 									FROM observation NATURAL JOIN phenomenon NATURAL JOIN quality 
-									WHERE (feature_of_interest_id = '$foi_id') AND (time_stamp >= '$start_date'::date) AND (time_stamp <= '$end_date'::date) order by time_stamp asc");
+									WHERE (feature_of_interest_id = '$foi_id') AND (time_stamp >= '$start_date'::date) AND (time_stamp <= '$end_date'::date + INTERVAL '1 day') order by time_stamp asc");
 		return $result1;
 }
 
@@ -568,7 +604,7 @@ function getTableBerOffering($foi_id, $start_date, $end_date, $offering_id){
 	global $conn;
 		$result2 = pg_query($conn, "SELECT time_stamp,numeric_value, quality_value
 									FROM observation NATURAL JOIN phenomenon NATURAL JOIN quality 
-									WHERE (feature_of_interest_id = '$foi_id') AND (offering_id='$offering_id') AND (time_stamp >= '$start_date'::date) AND (time_stamp <= '$end_date'::date) order by time_stamp asc");
+									WHERE (feature_of_interest_id = '$foi_id') AND (offering_id='$offering_id') AND (time_stamp >= '$start_date'::date) AND (time_stamp <= '$end_date'::date + INTERVAL '1 day') order by time_stamp asc");
 		return $result2;
 }
 
@@ -576,7 +612,7 @@ function getTableLanuvBerOffering($foi_id, $start_date, $end_date, $offering_id)
 	global $conn;
 		$result = pg_query($conn, "SELECT numeric_value, quality_value, time_stamp
 									FROM observation NATURAL JOIN phenomenon NATURAL JOIN quality
-									WHERE feature_of_interest_id = '$foi_id' AND offering_id = '$offering_id' AND time_stamp >= '$start_date'::date AND time_stamp <= '$end_date'::date ORDER BY time_stamp asc");
+									WHERE feature_of_interest_id = '$foi_id' AND offering_id = '$offering_id' AND time_stamp >= '$start_date'::date AND time_stamp <= '$end_date'::date + INTERVAL '1 day' ORDER BY time_stamp asc");
 		return $result;
 }
 
