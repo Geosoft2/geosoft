@@ -4,24 +4,26 @@
 		include 'getobsvalmobile.php';
 		include 'chartdisoptsmobile.php';
 		
-
 /* for $_GET */
-		$foi = getVar("foiid");
-		$startdate = getVar("starting");
-		$enddate = getVar("ending");
+		$g_foi = getVar("foiid");
+		$g_startdate = getVar("starting");
+		$g_enddate = getVar("ending");
+		
+
 		//$observation = getVar("observation");
 /* if $foi, startdate, enddate and observation != '', then override $_POST */		
-		if ($foi != ''){
+		if ($g_foi != ''){
 			$_POST['foi'] = $_GET['foiid'];
 		}
 		
-		if ($startdate != ''){
+		if ($g_startdate != ''){
 			$_POST['startdate'] = $_GET['starting'];
 		}
 		
-		if ($enddate != ''){
+		if ($g_enddate != ''){
 			$_POST['enddate'] = $_GET['ending'];
 		}
+		
 		
 /*		if ($observation != ''){
 			$_POST['observation'] = $_GET['observation'];

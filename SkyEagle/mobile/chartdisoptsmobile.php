@@ -133,7 +133,7 @@ if (isset($_POST['observation']) AND isset($_POST['outliers'])){
 			break;
 		}
 	if(isset($_POST['PM10'])){ if($_POST['PM10'] == "PM10_CONCENTRATION"){ echo '
-										chart5.draw(data5, {curveType: "function",
+										chart3.draw(data3, {curveType: "function",
     									width: 320, height: 160,
     									vAxis:{title: "Werte in �g/m�"},
     									hAxis:{slantedText:false},
@@ -212,7 +212,7 @@ if (isset($_POST['observation']) AND isset($_POST['outliers'])){
 			break;
 			}
 			if(isset($_POST['PM10'])){ if($_POST['PM10'] == "PM10_CONCENTRATION"){
-			echo '	chart5.draw(data5, {curveType: "function",
+			echo 'chart3.draw(data3, {curveType: "function",
     							width: 320, height: 160,
     							vAxis:{title: "Werte in �g/m�"},
     							hAxis:{slantedText:false},

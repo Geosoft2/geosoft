@@ -114,8 +114,8 @@
         <?php
         //PM 10 checked?
         if (isset($_POST['PM10'])){ if($_POST['PM10'] == "PM10_CONCENTRATION"){ ?>
-		var data5 = new google.visualization.DataTable(<?php getValues("PM10_CONCENTRATION")?>);
-        var chart5 = new google.visualization.LineChart(document.getElementById('chart5_div'));
+		var data3 = new google.visualization.DataTable(<?php getValues("PM10_CONCENTRATION")?>);
+        var chart3 = new google.visualization.LineChart(document.getElementById('chart3_div'));
 		<?php }}?>
         <?php lanuvChartOptions();	?>
         
@@ -132,7 +132,7 @@
     // Set a callback to run when the Google Visualization API is loaded.
     google.setOnLoadCallback(drawChart);
    	}
-</script>  
+</script> 
 
 
 
@@ -169,11 +169,31 @@
 						<div id="chart2_div"></div>
 						<div id="chart3_div"></div> ';
 						}
-					else { echo '<div id="chart_div"></div>';
+					else { 
+						switch($numoff){
+							case 1: echo '<div id="chart_div"></div>';
+							break;
+							
+							case 2: echo '<div id="chart_div"></div>
+									<div id="chart2_div"></div>';
+							break;
+							
+							case 3: echo '<div id="chart_div"></div>
+									<div id="chart2_div"></div>
+									<div id="chart3_div"></div>';
+							break;
+							
+							case 4: echo '<div id="chart_div"></div>
+									<div id="chart2_div"></div>
+									<div id="chart3_div"></div>
+									<div id="chart4_div"></div>';
+							
+							
+						}
 								//PM10 checked
 								if(isset($_POST['PM10'])){ if($_POST['PM10'] == "PM10_CONCENTRATION"){
 								echo '
-								<div id="chart2_div"></div>';}}
+								<div id="chart5_div"></div>';}}
 								}
 								} ?>
 		</div>

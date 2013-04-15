@@ -47,10 +47,8 @@ $(function() {
 var numchked = $(":checkbox").filter(":checked").size();
 if (numchked > 3){
 	alert("Es wurden mehr als 3 Messwerte ausgewählt");
-	document.getElementById('submit').disabled = true;	
 }
 else {
-	document.getElementById('submit').disabled = false;
 }
 	
 }
@@ -192,8 +190,8 @@ $(function() {
         <?php
         //PM 10 checked?
         if (isset($_POST['PM10'])){ if($_POST['PM10'] == "PM10_CONCENTRATION"){ ?>
-		var data5 = new google.visualization.DataTable(<?php getValues("PM10_CONCENTRATION")?>);
-        var chart5 = new google.visualization.LineChart(document.getElementById('chart5_div'));
+		var data3 = new google.visualization.DataTable(<?php getValues("PM10_CONCENTRATION")?>);
+        var chart3 = new google.visualization.LineChart(document.getElementById('chart3_div'));
 		<?php }}?>
         <?php lanuvChartOptions();	?>
         
@@ -238,14 +236,14 @@ $(function() {
 			<div id="content">
 				<form action = "Diagramme.php" method ="post" id = "form" name="form">
 					<fieldset>
-						<legend>Bitte w&auml;hlen Sie eine Messstation:</legend>
+						<legend>Bitte w&auml;hlen Sie eine Messstation</legend>
 						<p>
 							<label>Messstation</label>
 							<?php createOptionList();?>
 						</p>
 					</fieldset>
 					<fieldset>
-						<legend>Bitte w&auml;hlen Sie ein Zeitintervall:</legend>
+						<legend>Bitte w&auml;hlen Sie ein Zeitintervall</legend>
 						<p>
 						<label for = "datepicker">von:</label>			
 						<input type = "text" 
@@ -263,7 +261,7 @@ $(function() {
 						</p>
 					</fieldset>
 					<fieldset>
-						<legend>Bitte w&auml;hlen Sie aus, ob das Diagramm Ausrei&szlig;ermarkierungen beinhalten soll oder nicht:</legend>
+						<legend>Bitte w&auml;hlen Sie aus, ob das Diagramm Ausrei&szlig;er beinhalten soll oder nicht</legend>
 						<p>
 						<?php 
 							createRadioButtons();
@@ -272,7 +270,7 @@ $(function() {
 						</p>
 					</fieldset>
 					<fieldset>
-						<legend>Bitte w&auml;hlen Sie aus, welche Messwerte sie im Diagramm anzeigen wollen:</legend>
+						<legend>Bitte w&auml;hlen Sie aus, welche Messwerte sie im Diagramm anzeigen wollen</legend>
 						<p>
 						<?php 
 							createCheckboxes();
