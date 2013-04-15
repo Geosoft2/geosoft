@@ -118,7 +118,7 @@
 				<label for="radio-choice-23">bereinigt</label>	
 				
 			</fieldset>
-			<legend><b>Bitte w&auml;hlen Sie aus, welche Messwerte sie im Diagramm anzeigen wollen. Es d&uuml; max. 3 Werte ausgew&auml;t werden.</b></legend>
+			<legend><b>Bitte w&auml;hlen Sie aus, welche Messwerte sie im Diagramm anzeigen wollen.<font color="red">Es d&uuml;fen max. 3 Werte ausgew&auml;t werden.</font></b></legend>
 			<fieldset data-role="controlgroup" data-type="horizontal" data-ajax="false">	
 						
 				
