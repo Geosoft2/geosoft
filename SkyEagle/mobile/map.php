@@ -149,8 +149,8 @@
 					+EggHum+" %</br><a href=\"http://de.wikipedia.org/wiki/Kohlenstoffmonoxid\"target=\"_blank\">Kohlenstoffmonoxid</a>: "
 					+EggCO+" ppm</br><a href=\"http://de.wikipedia.org/wiki/Stickstoffdioxid\"target=\"_blank\">Stickstoffdioxid</a>: "
 					+EggNO2+" ppm</br><a href=\"http://de.wikipedia.org/wiki/Ozon\"target=\"_blank\">Ozon</a>: "
-					+EggO3+" ppm</br></br><a href=\"Tabelle.php?starting=<?php echo $vorgestern?>&ending=<?php echo $heute?>&foiid="+EggFoi+"\"_blank\">Tabelle</a> "
-					+"<br><a href=\"Diagramme.php\"_blank\">Diagramme</a>")
+					+EggO3+" ppm</br></br><a href=\"tabelle.php?starting=<?php echo $vorgestern?>&ending=<?php echo $heute?>&foiid="+EggFoi+"\"_blank\">Tabelle</a> "
+					+"<br><a href=\"dia.php\"_blank\">Diagramme</a>")
 					;
 				EierLayer[i] = markerEggs;		// Layer array for all eggs
 				i++;
@@ -210,8 +210,8 @@
 						+LANUVNO2+" ppm</br><a href=\"http://de.wikipedia.org/wiki/PM10\" target=\"_blank\">Feinstaub</a>: "
 						+LANUVPM10+" &micro;g/m&sup3;</br><a href=\"http://de.wikipedia.org/wiki/Schwefeldioxid\" target=\"_blank\">Schwefeldioxid</a>: "
 						+LANUVSO2+" ppm</br><a href=\"http://de.wikipedia.org/wiki/Ozon\" target=\"_blank\">Ozon</a>: "
-						+LANUVO3+" ppm</br></br><a href=\"Tabelle.php?starting=<?php echo $vorgestern?>&ending=<?php echo $heute?>&foiid="+LANUVFoi+"\"_blank\">Tabelle</a> "
-						+"<br><a href=\"Diagramme.php\"_blank\">Diagramme</a>")
+						+LANUVO3+" ppm</br></br><a href=\"tabelle.php?starting=<?php echo $vorgestern?>&ending=<?php echo $heute?>&foiid="+LANUVFoi+"\"_blank\">Tabelle</a> "
+						+"<br><a href=\"dia.php\"_blank\">Diagramme</a>")
 					;
 				}
 				else {
@@ -222,8 +222,8 @@
 						LANUVName+"</br>Letzte Messung: "+LANUVTime+"</br><a href=\"http://de.wikipedia.org/wiki/Stickstoffmonoxid\" target=\"_blank\">Stickstoffmonoxid</a>: "
 						+LANUVNO+" ppm</br><a href=\"http://de.wikipedia.org/wiki/Stickstoffdioxid\" target=\"_blank\">Stickstoffdioxid</a>: "
 						+LANUVNO2 +" ppm</br><a href=\"http://de.wikipedia.org/wiki/PM10\" target=\"_blank\">Feinstaub</a>: "
-						+LANUVPM10+" &micro;g/m&sup3;</br></br><a href=\"Tabelle.php?starting=<?php echo $vorgestern?>&ending=<?php echo $heute?>&foiid="+LANUVFoi+"\"_blank\">Tabelle</a> "
-						+"<br><a href=\"Diagramme.php\"_blank\">Diagramme</a>")
+						+LANUVPM10+" &micro;g/m&sup3;</br></br><a href=\"tabelle.php?starting=<?php echo $vorgestern?>&ending=<?php echo $heute?>&foiid="+LANUVFoi+"\"_blank\">Tabelle</a> "
+						+"<br><a href=\"dia.php\"_blank\">Diagramme</a>")
 					;
 				}
 				LanuvLayer[j] = markerLanuv;
