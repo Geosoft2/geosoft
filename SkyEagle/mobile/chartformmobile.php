@@ -1,7 +1,7 @@
 <?php 
 /* CHART MODE */
 
-require_once ('dbconnector.php');
+require_once ('../php/dbconnector.php');
 
 /* Creates a option list with all fois */
 function createOptionList(){
@@ -41,7 +41,7 @@ function createRadioButtons(){
 		echo '<input type="radio" name="outliers" value="yes" checked> unbereinigte Werte</input>
 									<input type="radio" name="outliers" value="no"> bereinigte Werte</input>';
 	}
-	
+
 }
 
 /* Creates checkboxes
@@ -51,8 +51,7 @@ function createCheckboxes(){
 	echo' 				<input type = "checkbox"
 							id = "chkCO"
 							value = "CO_CONCENTRATION"
-							name = "observation[]"
-							onclick="chkbox()"';
+							name = "observation[]"';
 							 	  if (isset($_POST['observation'])){
 							 			if (in_array("CO_CONCENTRATION", $_POST['observation'])){
 											echo 'checked ="checked"';
@@ -69,8 +68,7 @@ function createCheckboxes(){
 						<input type = "checkbox"
 							id="chkNO"
 							value = "NO_CONCENTRATION"
-							name= "observation[]"
-							onclick="chkbox()"';
+							name= "observation[]"';
 							  		if (isset($_POST['observation'])){
 							 			if (in_array("NO_CONCENTRATION", $_POST['observation'])){
 											echo 'checked ="checked"';
@@ -87,8 +85,7 @@ function createCheckboxes(){
 						<input type = "checkbox"
 							id = "chkNO2"
 							value = "NO2_CONCENTRATION"
-							name = "observation[]"
-							onclick="chkbox()"';
+							name = "observation[]"';
 							 		if (isset($_POST['observation'])){
 							 			if (in_array("NO2_CONCENTRATION", $_POST['observation'])){
 											echo 'checked ="checked"';
@@ -100,8 +97,7 @@ function createCheckboxes(){
 						<input type = "checkbox"
 							id = "chkO3"
 							value = "O3_CONCENTRATION"
-							name = "observation[]"
-							onclick="chkbox()"';
+							name = "observation[]"';
 							 		if (isset($_POST['observation'])){
 							 			if (in_array("O3_CONCENTRATION", $_POST['observation'])){
 											echo 'checked ="checked"';
@@ -113,8 +109,7 @@ function createCheckboxes(){
 						<input type = "checkbox"
 							id = "chkPM10"
 							value = "PM10_CONCENTRATION"
-							name = "PM10"
-							onclick="chkbox()"';
+							name = "PM10"';
 							 		if (isset($_POST['observation_'])){
 							 			if ($_POST['PM10'] == "PM10_CONCENTRATION"){
 											echo 'checked ="checked"';
@@ -131,8 +126,7 @@ function createCheckboxes(){
 						<input type = "checkbox"
 							id = "chkSO2"
 							value = "SO2_CONCENTRATION"
-							name = "observation[]"
-							onclick="chkbox()"';
+							name = "observation[]"';
 							 		if (isset($_POST['observation'])){
 							 			if (in_array("SO2_CONCENTRATION", $_POST['observation'])){
 											echo 'checked ="checked"';

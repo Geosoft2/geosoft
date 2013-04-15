@@ -1,5 +1,5 @@
 <?php 	//include 'getobsval.php'; 
-		include '../php/chartform.php';
+		include 'chartformmobile.php';
 		include '../php/chkbox.php';
 		include 'getobsvalmobile.php';
 		include 'chartdisoptsmobile.php';
@@ -30,7 +30,32 @@
 		} */
 		
 		?>
+<script>
+function chkbox(){
+var formobj = document.forms[0];
 
+var counter = 0;
+for (var j = 0; j < formobj.elements.length; j++)
+{
+    if (formobj.elements[j].type == "checkbox")
+    {
+        if (formobj.elements[j].checked)
+        {
+            counter++;
+        }
+    }       
+}
+if (counter > 3){
+	alert("Es wurden mehr als 3 Messwerte ausgew�hlt");
+	document.getElementById("submit").disabled = true;
+}
+if (counter <= 3){
+	document.getElementById("submit").disabled = false;
+}
+}
+
+
+</script>
 
 <!DOCTYPE HTML>
 <head>
@@ -118,7 +143,7 @@
 				<label for="radio-choice-23">bereinigt</label>	
 				
 			</fieldset>
-			<legend><b>Bitte w&auml;hlen Sie aus, welche Messwerte sie im Diagramm anzeigen wollen.<font color="red">Es d&uuml;fen max. 3 Werte ausgew&auml;t werden.</font></b></legend>
+			<legend><b>Bitte w&auml;hlen Sie aus, welche Messwerte sie im Diagramm anzeigen wollen.<font color="red">Es d&uuml;fen max. 3 Werte ausgew&auml;hlt werden.</font></b></legend>
 			<fieldset data-role="controlgroup" data-type="horizontal" data-ajax="false">	
 						
 				

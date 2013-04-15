@@ -1,26 +1,29 @@
 <?php 	//include 'getobsval.php'; 
-		include '../php/chartform.php';
+		include 'chartformmobile.php';
 		include '../php/chkbox.php';
 		include 'getobsvalmobile.php';
 		include 'chartdisoptsmobile.php';
 
 /* for $_GET */
-		$foi = getVar("foiid");
-		$startdate = getVar("starting");
-		$enddate = getVar("ending");
+		$g_foi = getVar("foiid");
+		$g_startdate = getVar("starting");
+		$g_enddate = getVar("ending");
+		
+
 		//$observation = getVar("observation");
 /* if $foi, startdate, enddate and observation != '', then override $_POST */		
-		if ($foi != ''){
+		if ($g_foi != ''){
 			$_POST['foi'] = $_GET['foiid'];
 		}
 		
-		if ($startdate != ''){
+		if ($g_startdate != ''){
 			$_POST['startdate'] = $_GET['starting'];
 		}
 		
-		if ($enddate != ''){
+		if ($g_enddate != ''){
 			$_POST['enddate'] = $_GET['ending'];
 		}
+		
 		
 /*		if ($observation != ''){
 			$_POST['observation'] = $_GET['observation'];
@@ -95,16 +98,7 @@
 				var data3 = new google.visualization.DataTable(<?php getValues($_POST['observation']['2'])?>);
 				var chart3 = new google.visualization.LineChart(document.getElementById('chart3_div')); <?php
 				break;
-				
-				case 4: ?> var data = new google.visualization.DataTable(<?php getValues($_POST['observation']['0'])?>);
-				var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-				var data2 = new google.visualization.DataTable(<?php getValues($_POST['observation']['1'])?>);
-				var chart2 = new google.visualization.LineChart(document.getElementById('chart2_div'));
-				var data3 = new google.visualization.DataTable(<?php getValues($_POST['observation']['2'])?>);
-				var chart3 = new google.visualization.LineChart(document.getElementById('chart3_div'));
-				var data4 = new google.visualization.DataTable(<?php getValues($_POST['observation']['3'])?>);
-				var chart4 = new google.visualization.LineChart(document.getElementById('chart4_div')); <?php
-				break;				
+				 			
 		        
 		}
 }
@@ -132,7 +126,7 @@
     // Set a callback to run when the Google Visualization API is loaded.
     google.setOnLoadCallback(drawChart);
    	}
-</script> 
+</script>
 
 
 
